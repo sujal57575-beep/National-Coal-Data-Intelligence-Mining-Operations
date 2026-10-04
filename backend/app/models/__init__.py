@@ -1,0 +1,23 @@
+from app.models.entities import (
+    User,
+    Subsidiary,
+    Mine,
+    Document,
+    DocumentVersion,
+    DocumentPage,
+    OCRResult,
+    ExtractedEntity,
+    ExtractedTable,
+    ExtractedMetric,
+    ValidationResult,
+    ParliamentaryQuery,
+    ReportTemplate,
+    Report,
+    Approval,
+    AuditLog,
+    DocumentEmbedding,
+    Topic,
+    Keyword,
+    AIRecommendation,
+    Notification
+)
