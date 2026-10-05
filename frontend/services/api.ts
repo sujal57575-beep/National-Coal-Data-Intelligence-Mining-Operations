@@ -216,22 +216,6 @@ let mockMines: MineItem[] = REAL_MEGA_MINES_DATABASE.map((m, idx) => ({
 
 let mockDocuments: DocumentItem[] = [
   {
-    document_id: 'doc-001',
-    file_name: 'GSI_National_Coal_Inventory_2025_Detailed_State_Reserves.pdf',
-    file_type: 'PDF',
-    file_size: 15420000,
-    upload_date: '2025-04-02T10:00:00Z',
-    department: 'Geology & Exploration',
-    subsidiary_name: 'CMPDI Central Directorate',
-    mine_name: 'All Indian Coalfields',
-    document_category: 'Geological Report',
-    document_year: 2025,
-    financial_year: '2024-25',
-    processing_status: 'VALIDATED',
-    confidence_score: 0.99,
-    processing_progress: 100
-  },
-  {
     document_id: 'doc-002',
     file_name: 'CIL_Annual_Production_Offtake_Accounts_FY2024-25.xlsx',
     file_type: 'XLSX',
@@ -245,6 +229,22 @@ let mockDocuments: DocumentItem[] = [
     financial_year: '2024-25',
     processing_status: 'VALIDATED',
     confidence_score: 0.98,
+    processing_progress: 100
+  },
+  {
+    document_id: 'doc-001',
+    file_name: 'GSI_National_Coal_Inventory_2025_Detailed_State_Reserves.pdf',
+    file_type: 'PDF',
+    file_size: 15420000,
+    upload_date: '2025-04-02T10:00:00Z',
+    department: 'Geology & Exploration',
+    subsidiary_name: 'CMPDI Central Directorate',
+    mine_name: 'All Indian Coalfields',
+    document_category: 'Geological Report',
+    document_year: 2025,
+    financial_year: '2024-25',
+    processing_status: 'VALIDATED',
+    confidence_score: 0.99,
     processing_progress: 100
   },
   {
@@ -314,68 +314,6 @@ let mockDocuments: DocumentItem[] = [
 ];
 
 let mockEntities: Record<string, ExtractedEntity[]> = {
-  'doc-001': [
-    {
-      id: 'ent-1',
-      document_id: 'doc-001',
-      page_number: 1,
-      entity_type: 'NATIONAL_GEOLOGICAL_RESERVE',
-      raw_value: '400,715.45 Million Tonnes',
-      normalized_value: '400715.45',
-      unit: 'Million Tonnes',
-      conversion_method: 'GSI National Geological Inventory standard',
-      bounding_box_json: { x: 70, y: 130, w: 340, h: 45, page: 1 },
-      ocr_confidence: 0.99,
-      extraction_confidence: 0.99,
-      validation_status: 'ACCEPT',
-      is_validated: true
-    },
-    {
-      id: 'ent-2',
-      document_id: 'doc-001',
-      page_number: 1,
-      entity_type: 'ODISHA_COAL_RESERVES',
-      raw_value: '100,975.78 MT (25.20% national share)',
-      normalized_value: '100975.78',
-      unit: 'Million Tonnes',
-      conversion_method: 'Talcher & Ib Valley Basin Aggregate',
-      bounding_box_json: { x: 70, y: 190, w: 350, h: 42, page: 1 },
-      ocr_confidence: 0.98,
-      extraction_confidence: 0.98,
-      validation_status: 'ACCEPT',
-      is_validated: true
-    },
-    {
-      id: 'ent-3',
-      document_id: 'doc-001',
-      page_number: 2,
-      entity_type: 'JHARKHAND_COAL_RESERVES',
-      raw_value: '93,254.06 MT (23.27% national share)',
-      normalized_value: '93254.06',
-      unit: 'Million Tonnes',
-      conversion_method: 'Jharia, Bokaro & Karanpura Basin Aggregate',
-      bounding_box_json: { x: 70, y: 140, w: 350, h: 42, page: 2 },
-      ocr_confidence: 0.98,
-      extraction_confidence: 0.97,
-      validation_status: 'ACCEPT',
-      is_validated: true
-    },
-    {
-      id: 'ent-4',
-      document_id: 'doc-001',
-      page_number: 2,
-      entity_type: 'CHHATTISGARH_COAL_RESERVES',
-      raw_value: '85,263.22 MT (21.28% national share)',
-      normalized_value: '85263.22',
-      unit: 'Million Tonnes',
-      conversion_method: 'Korba & Mand-Raigarh Basin Aggregate',
-      bounding_box_json: { x: 70, y: 200, w: 350, h: 42, page: 2 },
-      ocr_confidence: 0.98,
-      extraction_confidence: 0.97,
-      validation_status: 'ACCEPT',
-      is_validated: true
-    }
-  ],
   'doc-002': [
     {
       id: 'ent-5',
@@ -386,7 +324,7 @@ let mockEntities: Record<string, ExtractedEntity[]> = {
       normalized_value: '781.06',
       unit: 'Million Tonnes',
       conversion_method: 'Audited Weighbridge & Dispatch Consolidation',
-      bounding_box_json: { x: 80, y: 140, w: 340, h: 45, page: 1 },
+      bounding_box_json: { x: 20, y: 195, w: 450, h: 58, page: 1 },
       ocr_confidence: 0.99,
       extraction_confidence: 0.99,
       validation_status: 'ACCEPT',
@@ -401,7 +339,39 @@ let mockEntities: Record<string, ExtractedEntity[]> = {
       normalized_value: '218.31',
       unit: 'Million Tonnes',
       conversion_method: 'Mahanadi Coalfields Return',
-      bounding_box_json: { x: 80, y: 210, w: 320, h: 40, page: 1 },
+      bounding_box_json: { x: 20, y: 285, w: 450, h: 58, page: 1 },
+      ocr_confidence: 0.98,
+      extraction_confidence: 0.98,
+      validation_status: 'ACCEPT',
+      is_validated: true
+    }
+  ],
+  'doc-001': [
+    {
+      id: 'ent-1-prod',
+      document_id: 'doc-001',
+      page_number: 1,
+      entity_type: 'TOTAL_CIL_PRODUCTION',
+      raw_value: '781.06 MT (FY 2024-25)',
+      normalized_value: '781.06',
+      unit: 'Million Tonnes',
+      conversion_method: 'Audited Weighbridge & Dispatch Consolidation',
+      bounding_box_json: { x: 20, y: 195, w: 450, h: 58, page: 1 },
+      ocr_confidence: 0.99,
+      extraction_confidence: 0.99,
+      validation_status: 'ACCEPT',
+      is_validated: true
+    },
+    {
+      id: 'ent-2-prod',
+      document_id: 'doc-001',
+      page_number: 1,
+      entity_type: 'MCL_TOP_PRODUCER',
+      raw_value: '218.31 MT (Highest Subsidiary)',
+      normalized_value: '218.31',
+      unit: 'Million Tonnes',
+      conversion_method: 'Mahanadi Coalfields Return',
+      bounding_box_json: { x: 20, y: 285, w: 450, h: 58, page: 1 },
       ocr_confidence: 0.98,
       extraction_confidence: 0.98,
       validation_status: 'ACCEPT',
@@ -911,8 +881,8 @@ export async function fetchDocumentExtractions(id: string) {
     // Fallback
   }
 
-  const entities = mockEntities[id] || mockEntities['doc-001'];
-  const tables = mockTables[id] || mockTables['doc-001'];
+  const entities = mockEntities[id] || mockEntities['doc-002'] || mockEntities['doc-001'];
+  const tables = mockTables[id] || mockTables['doc-002'] || mockTables['doc-001'];
 
   return {
     document_id: id,
@@ -923,13 +893,13 @@ export async function fetchDocumentExtractions(id: string) {
         page_number: 1,
         width: 800,
         height: 1100,
-        text: `GEOLOGICAL SURVEY OF INDIA & CMPDI RANCHI\nNATIONAL COAL INVENTORY ESTIMATION (AS OF APRIL 1, 2025)\n\n1. EXECUTIVE SUMMARY OF NATIONAL RESOURCES\nTotal estimated geological coal resources across the Republic of India stand at 400,715.45 Million Tonnes (~400.72 Billion Tonnes).\nThe vast majority (399,020.80 MT or 99.58%) occurs within Gondwana sedimentary formations.\nOdisha holds the highest endowment at 100,975.78 MT (25.20%), followed by Jharkhand at 93,254.06 MT (23.27%) and Chhattisgarh at 85,263.22 MT (21.28%).\n\n2. RESOURCE HORIZON & MINING METHOD\nOpencast mineable depth horizon (0 to 300 metres) encompasses over 67% of proved reserves.\nExploration has confirmed continuous seams of thickness exceeding 0.90m up to depths of 1,200m.`
+        text: `COAL INDIA LIMITED (APEX) & CMPDI RANCHI\nANNUAL PRODUCTION & OFFTAKE PERFORMANCE ACCOUNTS (FY 2024-25)\n\n1. EXECUTIVE SUMMARY OF CIL COAL PRODUCTION\nTotal Coal India Limited (CIL) consolidated coal production across all active subsidiaries stands at 781.06 Million Tonnes (FY 2024-25), reflecting resilient operational efficiency across opencast and underground mines.\n\n2. SUBSIDIARY PERFORMANCE HIGHLIGHTS\nMahanadi Coalfields Limited (MCL) achieved peak domestic subsidiary output at 218.31 Million Tonnes, representing the highest production volume among all operating divisions.\n\n3. ANNUAL DISPATCH & OFFTAKE METRICS\nOperational Target Achievement: 93.2% against budgeted targets with advanced dispatch telemetry deployed across all mega opencast pits.`
       },
       {
         page_number: 2,
         width: 800,
         height: 1100,
-        text: `STATE-WISE DISTRIBUTION OF COAL RESOURCES (IN MILLION TONNES):\n\n1. ODISHA: 100,975.78 MT (Talcher & Ib Valley Coalfields)\n2. JHARKHAND: 93,254.06 MT (Jharia, Bokaro, North & South Karanpura, Rajmahal)\n3. CHHATTISGARH: 85,263.22 MT (Korba, Mand-Raigarh, Hasdeo-Arand)\n4. WEST BENGAL: 34,386.09 MT (Raniganj & Birbhum Coalfields)\n5. MADHYA PRADESH: 33,563.62 MT (Singrauli, Sohagpur, Pench-Kanhan)\n6. TELANGANA: 23,380.00 MT (Godavari Valley Basin)\n7. MAHARASHTRA: 13,420.00 MT (Wardha Valley, Kamptee)\n8. OTHER STATES: 16,472.68 MT (Tertiary Northeast, Bihar Mandar Parvat)\n\nTOTAL NATIONAL INVENTORY: 400,715.45 MILLION TONNES.`
+        text: `SUBSIDIARY-WISE PRODUCTION SUMMARY (FY 2024-25):\n\n1. MCL (Mahanadi Coalfields): 218.31 MT (Target: 220.00 MT)\n2. SECL (South Eastern Coalfields): 187.00 MT (Target: 200.00 MT)\n3. NCL (Northern Coalfields): 140.00 MT (Target: 142.00 MT)\n4. CCL (Central Coalfields): 86.00 MT (Target: 90.00 MT)\n5. WCL (Western Coalfields): 68.00 MT (Target: 70.00 MT)\n6. ECL (Eastern Coalfields): 43.00 MT (Target: 47.00 MT)\n7. BCCL (Bharat Coking Coal): 38.75 MT (Target: 41.00 MT)\n\nCONSOLIDATED TOTAL PRODUCTION: 781.06 MILLION TONNES.`
       }
     ],
     ocr_results: [

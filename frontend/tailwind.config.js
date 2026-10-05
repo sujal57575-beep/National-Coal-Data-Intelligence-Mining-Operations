@@ -9,21 +9,25 @@ module.exports = {
     extend: {
       colors: {
         cil: {
-          50: '#f0f7ff',
-          100: '#e0effe',
-          200: '#bae0fd',
-          500: '#0284c7',
-          600: '#0369a1',
-          700: '#075985',
-          800: '#0c4a6e',
-          900: '#0a3854',
-          950: '#062438',
+          50: '#ecfdf5',
+          100: '#d1fae5',
+          200: '#a7f3d0',
+          500: '#10b981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065f46',
+          900: '#064e3b',
+          950: '#022c22',
         },
         coal: {
           800: '#1e242b',
           900: '#13171b',
           950: '#0a0d0f',
         }
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
     },
   },

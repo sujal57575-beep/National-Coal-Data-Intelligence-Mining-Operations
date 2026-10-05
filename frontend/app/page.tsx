@@ -12,13 +12,14 @@ import { ParliamentaryTab } from '../components/ParliamentaryTab';
 import { ReportsTab } from '../components/ReportsTab';
 import { AnalyticsTab } from '../components/AnalyticsTab';
 import { AuditTab } from '../components/AuditTab';
+import { GeoMapTab } from '../components/GeoMapTab';
 import { AuthModal } from '../components/AuthModal';
 import { getSavedUser, logoutUser, UserProfile } from '../services/api';
-import { CheckCircle2, UserCheck, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, UserCheck, ShieldCheck, Fingerprint, X } from 'lucide-react';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
-  const [selectedDocId, setSelectedDocId] = useState<string>('doc-001');
+  const [selectedDocId, setSelectedDocId] = useState<string>('doc-002');
 
   // User Authentication State
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
@@ -60,7 +61,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-mesh-gradient flex flex-col font-sans">
       {/* Top Navigation Bar with GOI & CMPDI branding */}
       <Navbar
         activeTab={activeTab}
@@ -73,16 +74,16 @@ export default function Home() {
 
       {/* Auth Banner Notification */}
       {authBannerMsg && (
-        <div className="bg-sky-900 text-sky-100 text-xs px-6 py-2 flex items-center justify-between border-b border-sky-800 animate-in fade-in">
+        <div className="bg-gradient-to-r from-emerald-900 to-teal-900 text-emerald-100 text-xs px-6 py-2.5 flex items-center justify-between border-b border-emerald-800/50 animate-slide-up">
           <div className="flex items-center space-x-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span className="font-medium">{authBannerMsg}</span>
+            <Fingerprint className="w-4 h-4 text-emerald-400" />
+            <span className="font-semibold">{authBannerMsg}</span>
           </div>
           <button
             onClick={() => setAuthBannerMsg(null)}
-            className="text-sky-300 hover:text-white"
+            className="text-emerald-300 hover:text-white p-1 hover:bg-emerald-800 rounded-lg transition-colors"
           >
-            ✕
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
       )}
@@ -99,46 +100,50 @@ export default function Home() {
 
         {/* Central Content Canvas */}
         <main className="flex-1 overflow-y-auto p-6 md:p-8 max-w-7xl mx-auto w-full">
-          {activeTab === 'dashboard' && (
-            <DashboardTab onNavigateTab={(tab) => setActiveTab(tab)} />
-          )}
+          <div key={activeTab} className="animate-fade-in">
+            {activeTab === 'dashboard' && (
+              <DashboardTab onNavigateTab={(tab) => setActiveTab(tab)} />
+            )}
 
-          {activeTab === 'documents' && (
-            <DocumentsTab
-              onSelectDocumentForExtraction={(docId) => {
-                setSelectedDocId(docId);
-                setActiveTab('extraction');
-              }}
-            />
-          )}
+            {activeTab === 'documents' && (
+              <DocumentsTab
+                onSelectDocumentForExtraction={(docId) => {
+                  setSelectedDocId(docId);
+                  setActiveTab('extraction');
+                }}
+              />
+            )}
 
-          {activeTab === 'extraction' && (
-            <ExtractionStudioTab
-              selectedDocId={selectedDocId}
-              onSelectDocId={setSelectedDocId}
-            />
-          )}
+            {activeTab === 'extraction' && (
+              <ExtractionStudioTab
+                selectedDocId={selectedDocId}
+                onSelectDocId={setSelectedDocId}
+              />
+            )}
 
-          {activeTab === 'ai_assistant' && <AIAssistantTab />}
+            {activeTab === 'ai_assistant' && <AIAssistantTab />}
 
-          {activeTab === 'search' && (
-            <SearchTab
-              onSelectDocForReview={(docId) => {
-                setSelectedDocId(docId);
-                setActiveTab('extraction');
-              }}
-            />
-          )}
+            {activeTab === 'search' && (
+              <SearchTab
+                onSelectDocForReview={(docId) => {
+                  setSelectedDocId(docId);
+                  setActiveTab('extraction');
+                }}
+              />
+            )}
 
-          {activeTab === 'parliamentary' && <ParliamentaryTab />}
+            {activeTab === 'parliamentary' && <ParliamentaryTab />}
 
-          {activeTab === 'reports' && <ReportsTab />}
+            {activeTab === 'reports' && <ReportsTab />}
 
-          {activeTab === 'analytics' && (
-            <AnalyticsTab onSearchTopic={(term) => setActiveTab('search')} />
-          )}
+            {activeTab === 'analytics' && (
+              <AnalyticsTab onSearchTopic={(term) => setActiveTab('search')} />
+            )}
 
-          {activeTab === 'audit' && <AuditTab />}
+            {activeTab === 'audit' && <AuditTab />}
+
+            {activeTab === 'geomap' && <GeoMapTab />}
+          </div>
         </main>
       </div>
 
