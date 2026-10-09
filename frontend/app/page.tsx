@@ -13,6 +13,7 @@ import { ReportsTab } from '../components/ReportsTab';
 import { AnalyticsTab } from '../components/AnalyticsTab';
 import { AuditTab } from '../components/AuditTab';
 import { GeoMapTab } from '../components/GeoMapTab';
+import { AboutTab } from '../components/AboutTab';
 import { AuthModal } from '../components/AuthModal';
 import { getSavedUser, logoutUser, UserProfile } from '../services/api';
 import { CheckCircle2, UserCheck, ShieldCheck, Fingerprint, X } from 'lucide-react';
@@ -143,6 +144,8 @@ export default function Home() {
             {activeTab === 'audit' && <AuditTab />}
 
             {activeTab === 'geomap' && <GeoMapTab />}
+
+            {activeTab === 'about' && <AboutTab />}
           </div>
         </main>
       </div>

@@ -4,6 +4,19 @@
 
 ---
 
+## 🏆 Smart India Hackathon (SIH) 2026 - Problem Statement
+
+**PS ID:** SIH26023  
+**Title:** AI-Powered Geological, Mining and other Reporting Solution for CMPDI/CIL subsidiaries  
+**Category:** Software
+
+### Context & Objective
+The Ministry of Coal aims to leverage Artificial Intelligence, advanced data analytics, and smart automation to enhance operational efficiency, safety, and governance within the Indian coal mining sector. The Central Mine Planning & Design Institute (CMPDI) acts as the nodal agency for this initiative. 
+
+Our solution provides a unified AI platform that digitizes and processes massive volumes of unstructured geological exploration dossiers, borehole lithology logs, and DGMS compliance reports. It uses highly accurate OCR and RAG models to reduce manual data-entry time, flags operational anomalies in coal production, and synthesizes automated parliamentary question responses with full auditability.
+
+---
+
 ## 🏛️ Executive Platform Overview
 
 The **CMPDI / CIL AI Data Intelligence Platform** is an enterprise-grade AI system designed to digitize, unify, validate, and query geological exploration dossiers, borehole lithology logs, monthly mining production returns, and statutory DGMS compliance reports across all 8 operating subsidiaries of Coal India Limited.

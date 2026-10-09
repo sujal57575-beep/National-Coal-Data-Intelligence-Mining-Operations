@@ -59,6 +59,7 @@ const MapInner: React.FC = () => {
   const tileRef = useRef<L.TileLayer | null>(null);
   const circlesRef = useRef<L.Circle[]>([]);
   const osmPinsRef = useRef<L.CircleMarker[]>([]);
+  const boreholesRef = useRef<L.CircleMarker[]>([]);
 
   const [activeLayer, setActiveLayer] = useState('osm');
   const [filterSub, setFilterSub] = useState('ALL');
@@ -68,6 +69,7 @@ const MapInner: React.FC = () => {
   const [osmLoading, setOsmLoading] = useState(false);
   const [osmCount, setOsmCount] = useState(0);
   const [showOsm, setShowOsm] = useState(false);
+  const [showBoreholes, setShowBoreholes] = useState(false);
   const [selected, setSelected] = useState<typeof COAL_FIELDS[0] | null>(null);
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [aq, setAq] = useState<AirQualityData | null>(null);
@@ -245,6 +247,42 @@ const MapInner: React.FC = () => {
     setOsmCount(nodes.length); setOsmLoading(false);
   };
 
+  const toggleBoreholes = () => {
+    if (showBoreholes) {
+      boreholesRef.current.forEach(m => m.remove());
+      boreholesRef.current = [];
+      setShowBoreholes(false);
+      return;
+    }
+    if (!mapRef.current) return;
+    
+    setShowBoreholes(true);
+    // Generate 150 simulated borehole locations clustered around the coal fields
+    COAL_FIELDS.forEach(cf => {
+      const numHoles = Math.floor(cf.resources_mt / 2000); // More resources = more boreholes
+      for (let i = 0; i < numHoles; i++) {
+        // Random offset within roughly 50km
+        const lat = cf.lat + (Math.random() - 0.5) * 0.8;
+        const lon = cf.lon + (Math.random() - 0.5) * 0.8;
+        const depth = Math.floor(Math.random() * 400) + 100;
+        const gcv = Math.floor(Math.random() * 3000) + 4000;
+        
+        // Heatmap color based on GCV (Gross Calorific Value)
+        const color = gcv > 6000 ? '#ef4444' : gcv > 5000 ? '#f97316' : '#3b82f6';
+        
+        const m = L.circleMarker([lat, lon], { radius: 3, color: '#fff', fillColor: color, fillOpacity: 0.8, weight: 0.5 })
+          .bindPopup(`<div style="font-family:sans-serif;font-size:12px;">
+            <b>Borehole: BH-${cf.sub}-${1000 + i}</b><br/>
+            Depth: ${depth}m<br/>
+            GCV: ${gcv} kcal/kg<br/>
+            Seam Thickness: ${(Math.random() * 10 + 1).toFixed(1)}m
+          </div>`)
+          .addTo(mapRef.current!);
+        boreholesRef.current.push(m);
+      }
+    });
+  };
+
   const filteredFields = COAL_FIELDS.filter(f => filterSub === 'ALL' || f.sub === filterSub);
 
   return (
@@ -301,6 +339,13 @@ const MapInner: React.FC = () => {
             {osmLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <MapPin className="w-3 h-3" />}
             <span>OSM Mine Pins</span>
             {osmCount > 0 && <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-mono ${showOsm ? 'bg-white/20' : 'bg-amber-100 text-amber-700'}`}>{osmCount}</span>}
+          </button>
+
+          {/* Borehole Layer Toggle */}
+          <button onClick={toggleBoreholes}
+            className={`text-[10px] px-3 py-1 rounded-lg font-bold border flex items-center space-x-1.5 transition-all ${showBoreholes ? 'bg-indigo-500 text-white border-indigo-400 shadow-md shadow-indigo-500/20' : 'border-slate-200 text-slate-600 hover:border-indigo-400 hover:text-indigo-700'}`}>
+            <MapPin className="w-3 h-3" />
+            <span>Borehole Layer</span>
           </button>
 
           {/* Full Screen Toggle Button */}

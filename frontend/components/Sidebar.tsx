@@ -15,7 +15,8 @@ import {
   Sparkles,
   ChevronRight,
   Activity,
-  Map
+  Map,
+  Info
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -118,6 +119,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
       badge: 'Live Map',
       badgeColor: 'bg-cyan-100 text-cyan-700 border-cyan-200',
       accentColor: 'cyan'
+    },
+    {
+      id: 'about',
+      label: 'SIH PS26023 Details',
+      subtitle: 'Problem Statement Info',
+      icon: Info,
+      badge: 'New',
+      badgeColor: 'bg-indigo-100 text-indigo-700 border-indigo-200',
+      accentColor: 'indigo'
     }
   ];
 
